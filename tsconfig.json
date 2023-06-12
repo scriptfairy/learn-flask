@@ -11,10 +11,7 @@
       "strict": true,
       "sourceMap": true,
       "target": "esnext",
-      "rootDir": "./app",
-      "outDir": "./static/app"
-    },
-    "exclude": [
-      "node_modules"
-    ]
+      "rootDir": "./src/client",
+      "noEmit": true
+    }
   }

@@ -1,4 +1,6 @@
+import os
 from flask import Flask, jsonify, render_template, send_from_directory
+
 
 app = Flask(__name__)
 
@@ -8,9 +10,9 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/static/<path:path>")
-def send_report(path):
-    return send_from_directory("static", path)
+@app.route("/build/<path:path>")
+def static_build(path):
+    return send_from_directory("../../build", path)
 
 
 @app.route("/hello")

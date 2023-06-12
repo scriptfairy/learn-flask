@@ -92,4 +92,9 @@ Create a `tsconfig.json` file:
 
 ```
 npm install react react-dom
+npm i --save-dev @types/react @types/react-dom
 ```
+
+Follow instructions here:
+
+https://react.dev/learn/add-react-to-an-existing-project

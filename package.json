@@ -2,15 +2,23 @@
   "name": "learn-flask",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "flask --app main.py --debug run",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npm run server\" \"npm run client:build:watch\"",
+    "server": "flask --app src/server/main.py --debug run",
+    "client:build": "esbuild src/client/main.tsx --bundle --outfile=build/main.js",
+    "client:build:watch": "npm run client:build -- --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^18.2.11",
+    "@types/react-dom": "^18.2.4",
+    "concurrently": "^8.2.0",
+    "esbuild": "^0.18.0",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

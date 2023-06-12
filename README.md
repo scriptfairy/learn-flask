@@ -41,7 +41,7 @@ $ npm init
 To run the application:
 
 ```bash
-$ flask --app main.py --debug run
+$ npm run dev
 ```
 
 Then go to:
