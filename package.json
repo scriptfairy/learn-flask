@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client:build:watch\"",
+    "dev": "concurrently \"npm:server\" \"npm:client:build:watch\"",
     "server": "flask --app src/server/main.py --debug run",
     "client:build": "esbuild src/client/main.tsx --bundle --outfile=build/main.js",
     "client:build:watch": "npm run client:build -- --watch"
