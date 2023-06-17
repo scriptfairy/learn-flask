@@ -1,23 +1,19 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 import { SurveyLayout } from "../../layouts/surveyLayout";
 
-type SurveyResponseParams = {
+type SurveyResponsePageProps = {
   surveyId: string;
-  responseId: string;
+  responseId: string | null;
 };
 
-export function SurveyResponse() {
-  const { surveyId, responseId } = useParams<SurveyResponseParams>();
-
+export function SurveyResponsePage(props: SurveyResponsePageProps) {
+  const { surveyId, responseId } = props;
   return (
     <SurveyLayout surveyId={surveyId || ""}>
-      <div>
-        <h1>
-          Survey Response {surveyId} {responseId}
-        </h1>
-      </div>
+      <h1>
+        Survey Response {surveyId} {responseId}
+      </h1>
     </SurveyLayout>
   );
 }

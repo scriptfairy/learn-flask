@@ -1,17 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-export function MainLayout() {
-  return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
-      </nav>
-      <hr />
-    </div>
-  );
+type MainLayoutProps = {
+  children: React.ReactNode;
+};
+
+export function MainLayout(props: MainLayoutProps) {
+  const { children } = props;
+  return <div>{children}</div>;
 }

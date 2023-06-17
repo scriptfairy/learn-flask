@@ -1,23 +1,20 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { SurveyLayout } from "../../layouts/surveyLayout";
 
-type SurveyParams = {
+type SurveyPageProps = {
   surveyId: string;
 };
 
-export function Survey() {
-  const { surveyId } = useParams<SurveyParams>();
-
+export function SurveyPage(props: SurveyPageProps) {
+  const { surveyId } = props;
   return (
-    <SurveyLayout surveyId={surveyId || ""}>
-      <div>
-        <h1>Survey {surveyId}</h1>
-        <p>
-          <Link to="/survey/abc123/response">Start</Link>
-        </p>
-      </div>
+    <SurveyLayout surveyId={surveyId}>
+      <h1>Survey {surveyId}</h1>
+      <p>
+        <Link to="/survey/abc123/response">Start</Link>
+      </p>
     </SurveyLayout>
   );
 }

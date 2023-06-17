@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams, Link, Outlet } from "react-router-dom";
 
+import * as Urls from "../utils/urls";
+
 type SurveyLayoutProps = {
   surveyId: string;
   children: React.ReactNode;
@@ -9,7 +11,7 @@ type SurveyLayoutProps = {
 export function SurveyLayout(props: SurveyLayoutProps) {
   const { surveyId, children } = props;
 
-  const surveyPageUrl = `/survey/${surveyId}`;
+  const surveyPageUrl = Urls.surveyPage(surveyId);
 
   return (
     <div>
