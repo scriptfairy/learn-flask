@@ -1,9 +1,14 @@
 import React from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, useRouteError } from "react-router-dom";
 
+import { NotFoundPage } from "./pages/notFound/notFound";
 import { SurveyListPage } from "./pages/surveyList/surveyList";
 import { SurveyPage } from "./pages/survey/survey";
 import { SurveyResponsePage } from "./pages/surveyResponse/surveyResponse";
+
+export function NotFoundPageRoute() {
+  return <NotFoundPage />;
+}
 
 export function SurveyListPageRoute() {
   return <SurveyListPage />;
@@ -22,6 +27,9 @@ export function SurveyResponsePageRoute() {
   if (!surveyId) {
     throw new Error("Missing param surveyId");
   }
+  if (!responseId) {
+    throw new Error("Missing param responseId");
+  }
   return (
     <SurveyResponsePage surveyId={surveyId} responseId={responseId || null} />
   );
@@ -36,6 +44,7 @@ export function App() {
         path="/survey/:surveyId/response/:responseId?"
         element={<SurveyResponsePageRoute />}
       />
+      <Route path="*" element={<NotFoundPageRoute />} />
     </Routes>
   );
 }
