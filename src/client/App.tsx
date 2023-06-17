@@ -27,9 +27,6 @@ export function SurveyResponsePageRoute() {
   if (!surveyId) {
     throw new Error("Missing param surveyId");
   }
-  if (!responseId) {
-    throw new Error("Missing param responseId");
-  }
   return (
     <SurveyResponsePage surveyId={surveyId} responseId={responseId || null} />
   );
