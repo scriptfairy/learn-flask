@@ -16,12 +16,22 @@ export function SurveyLayout(props: SurveyLayoutProps) {
   return (
     <div>
       <nav>
-        <ul>
-          <li>
-            <Link to={Urls.homePage()}>Home</Link>
+        <ul className="flex">
+          <li className="mr-6">
+            <Link
+              className="text-blue-500 hover:text-blue-800"
+              to={Urls.homePage()}
+            >
+              Home
+            </Link>
           </li>
-          <li>
-            <Link to={surveyPageUrl}>Survey {surveyId}</Link>
+          <li className="mr-6">
+            <Link
+              className="text-blue-500 hover:text-blue-800"
+              to={surveyPageUrl}
+            >
+              Survey {surveyId}
+            </Link>
           </li>
         </ul>
       </nav>

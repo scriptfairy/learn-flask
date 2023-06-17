@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "concurrently \"npm:server\" \"npm:client:build:watch\"",
+    "dev": "concurrently \"npm:server\" \"npm:client:js\" \"npm:client:css\"",
     "server": "flask --app src/server/main.py --debug run",
-    "client:build": "esbuild src/client/main.tsx --bundle --outfile=build/main.js",
-    "client:build:watch": "npm run client:build -- --watch",
+    "client:js": "esbuild src/client/main.tsx --bundle --outfile=build/main.js --watch",
+    "client:css": "npx tailwindcss -i ./src/client/main.css -o ./build/main.css --watch",
     "types:check": "tsc"
   },
   "author": "",
@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.2.4",
     "concurrently": "^8.2.0",
     "esbuild": "^0.18.0",
+    "tailwindcss": "^3.3.2",
     "typescript": "^5.0.4"
   },
   "dependencies": {

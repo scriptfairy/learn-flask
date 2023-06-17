@@ -7,7 +7,7 @@ import * as Urls from "../../utils/urls";
 export function SurveyListPage() {
   return (
     <MainLayout>
-      <h1>Survey List</h1>
+      <h1 className="text-3xl bold">Survey List</h1>
       <ul>
         <li>
           <Link to={Urls.surveyPage("abc123")}>Survey ABC123</Link>
