@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useParams, useRouteError } from "react-router-dom";
+import { useParams, createBrowserRouter } from "react-router-dom";
 
 import { NotFoundPage } from "./pages/notFound/notFound";
 import { SurveyListPage } from "./pages/surveyList/surveyList";
@@ -32,16 +32,21 @@ export function SurveyResponsePageRoute() {
   );
 }
 
-export function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<SurveyListPageRoute />} />
-      <Route path="/survey/:surveyId" element={<SurveyPageRoute />} />
-      <Route
-        path="/survey/:surveyId/response/:responseId?"
-        element={<SurveyResponsePageRoute />}
-      />
-      <Route path="*" element={<NotFoundPageRoute />} />
-    </Routes>
-  );
-}
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SurveyListPageRoute />,
+  },
+  {
+    path: "/survey/:surveyId",
+    element: <SurveyPageRoute />,
+  },
+  {
+    path: "/survey/:surveyId/response/:responseId?",
+    element: <SurveyResponsePageRoute />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPageRoute />,
+  },
+]);
