@@ -111,6 +111,15 @@ def pert():
         return "The student is not aware of AIM."
 
 
+@app.route("/api/surveys")
+def api_surveys():
+    surveys = [
+        {"id": "abc123", "name": "Survey One"},
+        {"id": "xyz", "name": "Survey Two"},
+    ]
+    return surveys
+
+
 @app.route("/build/<path:path>")
 def static_build(path):
     return send_from_directory("../../build", path)

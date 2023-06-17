@@ -1,7 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { router } from "./router";
+
+const queryClient = new QueryClient();
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -11,7 +14,9 @@ if (appEl) {
   const root = ReactDOM.createRoot(appEl);
   root.render(
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </React.StrictMode>
   );
 }
