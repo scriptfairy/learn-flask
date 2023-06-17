@@ -6,7 +6,8 @@
     "dev": "concurrently \"npm:server\" \"npm:client:build:watch\"",
     "server": "flask --app src/server/main.py --debug run",
     "client:build": "esbuild src/client/main.tsx --bundle --outfile=build/main.js",
-    "client:build:watch": "npm run client:build -- --watch"
+    "client:build:watch": "npm run client:build -- --watch",
+    "types:check": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.13.0"
   }
 }

@@ -5,16 +5,6 @@ from flask import Flask, jsonify, render_template, send_from_directory
 app = Flask(__name__)
 
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-@app.route("/build/<path:path>")
-def static_build(path):
-    return send_from_directory("../../build", path)
-
-
 @app.route("/hello")
 def hello():
     return "<p>Hello, Worldz!</p>"
@@ -119,3 +109,14 @@ def pert():
         return "The student is aware of AIM."
     else:
         return "The student is not aware of AIM."
+
+
+@app.route("/build/<path:path>")
+def static_build(path):
+    return send_from_directory("../../build", path)
+
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    return render_template("index.html")
