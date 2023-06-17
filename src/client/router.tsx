@@ -6,15 +6,15 @@ import { SurveyListPage } from "./pages/surveyList/surveyList";
 import { SurveyPage } from "./pages/survey/survey";
 import { SurveyResponsePage } from "./pages/surveyResponse/surveyResponse";
 
-export function NotFoundPageRoute() {
+function NotFoundPageRoute() {
   return <NotFoundPage />;
 }
 
-export function SurveyListPageRoute() {
+function SurveyListPageRoute() {
   return <SurveyListPage />;
 }
 
-export function SurveyPageRoute() {
+function SurveyPageRoute() {
   const { surveyId } = useParams();
   if (!surveyId) {
     throw new Error("Missing param surveyId");
@@ -22,7 +22,7 @@ export function SurveyPageRoute() {
   return <SurveyPage surveyId={surveyId} />;
 }
 
-export function SurveyResponsePageRoute() {
+function SurveyResponsePageRoute() {
   const { surveyId, responseId } = useParams();
   if (!surveyId) {
     throw new Error("Missing param surveyId");

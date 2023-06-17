@@ -9,5 +9,9 @@ const appEl = document.getElementById("app");
 
 if (appEl) {
   const root = ReactDOM.createRoot(appEl);
-  root.render(<RouterProvider router={router} />);
+  root.render(
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  );
 }
