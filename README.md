@@ -16,12 +16,11 @@ Activate the Python environment:
 $ .venv\\Scripts\\activate
 ```
 
-### Flask
-
-Install Flask:
+### Dependencies
 
 ```bash
 $ pip install Flask
+$ pip install openapi
 ```
 
 ### Install Node
@@ -35,6 +34,10 @@ https://github.com/coreybutler/nvm-windows
 ```bash
 $ npm init
 ```
+
+### Set the Open AI API Key
+
+Set an environment variable named `OPENAI_API_KEY` to be able to use the Open AI code.
 
 ## Running the application
 
@@ -51,3 +54,5 @@ http://127.0.0.1:5000/
 ```
 
 To exit the application use `Ctrl-C`.
+
+After generating the OPENAI_API_KEY save it in Environment Variables under User variables.

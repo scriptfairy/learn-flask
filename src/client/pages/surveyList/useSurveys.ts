@@ -24,7 +24,7 @@ export type UseSurveysResult =
   | { status: "Success"; surveys: Survey[] };
 
 export function useSurveys(): UseSurveysResult {
-  const { data, status } = useQuery("users", fetchSurveys);
+  const { data, status } = useQuery("fetchSurveys", fetchSurveys);
   switch (status) {
     case "idle": {
       return { status: "Idle" };
