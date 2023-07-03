@@ -50,8 +50,11 @@ export function ChatPage() {
     <MainLayout>
       <h1>Chat</h1>
       <form>
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Send a message to chatGPT
+        </label>
         <textarea
-          className="border w-full"
+          className="border w-full h-32"
           value={text}
           onChange={(event) => {
             setText(event.target.value);

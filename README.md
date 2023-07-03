@@ -56,3 +56,17 @@ http://127.0.0.1:5000/
 To exit the application use `Ctrl-C`.
 
 After generating the OPENAI_API_KEY save it in Environment Variables under User variables.
+
+### Set OpenAI account
+
+After login to the account:
+
+1. Generate the API key and store it in the Environment Vars (user vars)
+
+2. Setup the account payment method and privide the credit card and other information
+
+3. In the account Usage Limits, set the soft and the hard limits
+
+### References
+
+https://github.com/openai/openai-cookbook
