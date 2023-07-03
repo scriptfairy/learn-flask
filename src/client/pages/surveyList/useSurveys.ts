@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import React from "react";
 import { z } from "zod";
 
 const surveySchema = z.object({
@@ -10,36 +10,43 @@ export type Survey = z.infer<typeof surveySchema>;
 
 const surveysSchema = z.array(surveySchema);
 
-const fetchSurveys = async (): Promise<Survey[]> => {
-  const res = await fetch("/api/surveys");
-  const data = await res.json();
-  const surveys = surveysSchema.parse(data);
-  return surveys;
-};
-
-export type UseSurveysResult =
+export type UseSurveysState =
   | { status: "Idle" }
-  | { status: "Error" }
+  | { status: "Error"; error: Error }
   | { status: "Loading" }
   | { status: "Success"; surveys: Survey[] };
 
-export function useSurveys(): UseSurveysResult {
-  const { data, status } = useQuery("fetchSurveys", fetchSurveys);
-  switch (status) {
-    case "idle": {
-      return { status: "Idle" };
+export function useSurveys(): UseSurveysState {
+  const fetchIsDone = React.useRef(false);
+  const [state, setState] = React.useState<UseSurveysState>({ status: "Idle" });
+
+  const fetchSurveys = (): void => {
+    setState({ status: "Loading" });
+
+    fetch("/api/surveys")
+      .then((result) => {
+        if (result.status !== 200) {
+          const error = new Error(result.statusText);
+          return Promise.reject(error);
+        }
+        return result.json();
+      })
+      .then((json) => {
+        const surveys = surveysSchema.parse(json);
+        setState({ status: "Success", surveys });
+      })
+      .catch((error) => {
+        setState({ status: "Error", error });
+      });
+  };
+
+  // Effect to make sure we call fetchSurveys() only once
+  React.useEffect(() => {
+    if (!fetchIsDone.current) {
+      fetchIsDone.current = true;
+      fetchSurveys();
     }
-    case "loading": {
-      return { status: "Loading" };
-    }
-    case "error": {
-      return { status: "Error" };
-    }
-    case "success": {
-      if (data) {
-        return { status: "Success", surveys: data };
-      }
-      return { status: "Error" };
-    }
-  }
+  }, []);
+
+  return state;
 }

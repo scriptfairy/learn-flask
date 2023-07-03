@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import React from "react";
 import { z } from "zod";
 
 const choiceMessageSchema = z.object({
@@ -16,82 +15,42 @@ const chatResponseSchema = z.object({
 
 export type ChatResponse = z.infer<typeof chatResponseSchema>;
 
-type SendChatVariables = {
-  text: string;
-};
+type SendChat = (text: string) => void;
 
-async function sendChat(variables: SendChatVariables): Promise<ChatResponse> {
-  console.log({ variables });
-
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    body: JSON.stringify(variables),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await res.json();
-  const chatResponse = chatResponseSchema.parse(data);
-  return chatResponse;
-}
-
-export type SendChatResult =
+export type SendChatState =
   | { status: "Idle" }
-  | { status: "Error" }
   | { status: "Loading" }
+  | { status: "Error"; error: Error }
   | { status: "Success"; chatResponse: ChatResponse };
 
-type SendChatFunction = (text: string) => void;
+export function useChat(): [SendChat, SendChatState] {
+  const [state, setState] = React.useState<SendChatState>({ status: "Idle" });
 
-function makeSendChatResult(
-  status: "error" | "idle" | "loading" | "success",
-  data: ChatResponse | undefined
-): SendChatResult {
-  switch (status) {
-    case "idle": {
-      return { status: "Idle" };
-    }
-    case "loading": {
-      return { status: "Loading" };
-    }
-    case "error": {
-      return { status: "Error" };
-    }
-    case "success": {
-      if (data) {
-        return { status: "Success", chatResponse: data };
-      }
-      return { status: "Error" };
-    }
-  }
-}
+  const sendChat: SendChat = (text: string): void => {
+    setState({ status: "Loading" });
 
-export function useChat(): [SendChatFunction, SendChatResult] {
-  const [variables, setVariables] = useState<SendChatVariables | null>(null);
+    fetch("/api/chat", {
+      method: "POST",
+      body: JSON.stringify({ text }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((result) => {
+        if (result.status !== 200) {
+          const error = new Error(result.statusText);
+          return Promise.reject(error);
+        }
+        return result.json();
+      })
+      .then((json) => {
+        const chatResponse = chatResponseSchema.parse(json);
+        setState({ status: "Success", chatResponse });
+      })
+      .catch((error) => {
+        setState({ status: "Error", error });
+      });
+  };
 
-  const { refetch, data, status } = useQuery(
-    ["sendChat", variables],
-    async () => {
-      if (variables) {
-        return sendChat(variables);
-      }
-    },
-    {
-      enabled: false,
-    }
-  );
-
-  useEffect(() => {
-    if (variables) {
-      refetch();
-    }
-  }, [variables]);
-
-  function sendChatFunction(text: string) {
-    setVariables({ text });
-  }
-
-  const result = makeSendChatResult(status, data);
-
-  return [sendChatFunction, result];
+  return [sendChat, state];
 }

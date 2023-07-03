@@ -1,7 +1,6 @@
 import React from "react";
-
 import { MainLayout } from "../../layouts/mainLayout";
-import { useChat, SendChatResult, ChatResponse } from "./useChat";
+import { useChat, SendChatState, ChatResponse } from "./useChat";
 
 type ChatReponseProps = {
   chatResponse: ChatResponse;
@@ -19,12 +18,12 @@ function ChatResponse(props: ChatReponseProps) {
 }
 
 type ChatResultProps = {
-  chatResult: SendChatResult;
+  sendChatState: SendChatState;
 };
 
 function ChatResult(props: ChatResultProps) {
-  const { chatResult } = props;
-  switch (chatResult.status) {
+  const { sendChatState } = props;
+  switch (sendChatState.status) {
     case "Idle": {
       return null;
     }
@@ -35,7 +34,7 @@ function ChatResult(props: ChatResultProps) {
       return "Error";
     }
     case "Success": {
-      const { chatResponse } = chatResult;
+      const { chatResponse } = sendChatState;
       return <ChatResponse chatResponse={chatResponse} />;
     }
   }
@@ -44,7 +43,7 @@ function ChatResult(props: ChatResultProps) {
 export function ChatPage() {
   const [text, setText] = React.useState("");
 
-  const [sendChat, chatResult] = useChat();
+  const [sendChat, sendChatState] = useChat();
 
   return (
     <MainLayout>
@@ -70,7 +69,7 @@ export function ChatPage() {
           Send
         </button>
       </form>
-      <ChatResult chatResult={chatResult} />
+      <ChatResult sendChatState={sendChatState} />
     </MainLayout>
   );
 }
