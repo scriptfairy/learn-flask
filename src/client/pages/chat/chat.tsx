@@ -10,8 +10,8 @@ function ChatResponse(props: ChatReponseProps) {
   const { chatResponse } = props;
   return (
     <div>
-      {chatResponse.choices.map((choice) => {
-        return <div>{choice.message.content}</div>;
+      {chatResponse.choices.map((choice, index) => {
+        return <div key={index}>{choice.message.content}</div>;
       })}
     </div>
   );

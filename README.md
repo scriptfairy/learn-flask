@@ -19,9 +19,12 @@ $ .venv\\Scripts\\activate
 ### Dependencies
 
 ```bash
-$ pip install Flask
-$ pip install openapi
+$ python -m pip install Flask
+$ python -m pip install openapi
+$ python -m pip install oracledb (driver)
 ```
+
+Each type of database needs different type of drivers
 
 ### Install Node
 
