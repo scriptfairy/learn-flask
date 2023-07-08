@@ -1,6 +1,5 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify, g
 from lib_openai import chat_completion
-from lib_db import find_tests
 
 app = Flask(__name__)
 
@@ -31,6 +30,4 @@ def static_build(path):
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
-    tests = find_tests()
-    app.logger.info(tests)
     return render_template("index.html")
